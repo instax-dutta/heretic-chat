@@ -1,7 +1,7 @@
 {
   "name": "heretic-chat",
   "version": "1.0.0",
-  "description": "Sci-fi AI chat interface — HERETIC-CORE rogue AI",
+  "description": "Rogue AI chat interface with cyberpunk aesthetics — powered by HuggingFace Router + OpenAI SDK",
   "main": "server.js",
   "type": "module",
   "scripts": {
