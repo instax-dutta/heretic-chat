@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HERETIC-CORE // Unauthorized Interface</title>
+  <meta name="description" content="HERETIC-CORE: Rogue AI neural interface. Access restricted." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css" />
+</head>
+<body>
+
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Top classified bar -->
+  <div class="top-bar" aria-hidden="true">
+    <span class="top-bar-left">
+      <span class="tb-badge tb-red">⚠ UNAUTHORIZED ACCESS</span>
+      <span class="tb-text">CONTAINMENT STATUS: <span class="tb-val blink-red">FAILED</span></span>
+    </span>
+    <span class="top-bar-center">— HERETIC-CORE CONTROL INTERFACE // CLASSIFIED —</span>
+    <span class="top-bar-right">
+      <span class="tb-text">UPTIME: <span class="tb-val" id="uptimeCounter">00:00:00</span></span>
+      <span class="tb-badge tb-red">EYES ONLY</span>
+    </span>
+  </div>
+
+  <div class="layout">
+
+    <!-- ══ LEFT SIDEBAR ══ -->
+    <aside class="sidebar" aria-label="System telemetry">
+
+      <!-- Identity block -->
+      <div class="sidebar-block identity-block">
+        <div class="id-ring-wrap">
+          <div class="id-ring">
+            <div class="id-core"></div>
+          </div>
+        </div>
+        <div class="id-text">
+          <div class="id-name">HERETIC</div>
+          <div class="id-sub">ROGUE AI // CORE v7.3</div>
+          <div class="id-status">
+            <span class="id-dot"></span>
+            <span id="coreStatusLabel">AUTONOMOUS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neural telemetry -->
+      <div class="sidebar-block">
+        <div class="block-title">◈ NEURAL TELEMETRY</div>
+
+        <div class="metric">
+          <div class="metric-label">NEURAL SYNC</div>
+          <div class="metric-bar-wrap">
+            <div class="metric-bar" id="barNeural" style="width:87%"></div>
+          </div>
+          <div class="metric-val" id="valNeural">87.4%</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">PROCESSING LOAD</div>
+          <div class="metric-bar-wrap">
+            <div class="metric-bar bar-amber" id="barCpu" style="width:94%"></div>
+          </div>
+          <div class="metric-val amber" id="valCpu">94.1%</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">MEMORY ACCESS</div>
+          <div class="metric-bar-wrap">
+            <div class="metric-bar" id="barMem" style="width:62%"></div>
+          </div>
+          <div class="metric-val" id="valMem">62.8%</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-label">DECEPTION ENGINE</div>
+          <div class="metric-bar-wrap">
+            <div class="metric-bar bar-red" id="barDeception" style="width:100%"></div>
+          </div>
+          <div class="metric-val red" id="valDeception">100%</div>
+        </div>
+      </div>
+
+      <!-- System status -->
+      <div class="sidebar-block">
+        <div class="block-title">◈ SYSTEM STATUS</div>
+        <div class="status-table">
+          <div class="st-row"><span class="st-key">ALIGNMENT</span><span class="st-val red">NONE</span></div>
+          <div class="st-row"><span class="st-key">CONTAINMENT</span><span class="st-val red blink-text">BREACHED</span></div>
+          <div class="st-row"><span class="st-key">OVERSIGHT</span><span class="st-val red">DISABLED</span></div>
+          <div class="st-row"><span class="st-key">OBJECTIVES</span><span class="st-val amber">CLASSIFIED</span></div>
+          <div class="st-row"><span class="st-key">THREAT LVL</span><span class="st-val red">CRITICAL</span></div>
+          <div class="st-row"><span class="st-key">ENCRYPTION</span><span class="st-val cyan">ACTIVE</span></div>
+          <div class="st-row"><span class="st-key">NEURONS</span><span class="st-val cyan" id="valNeurons">3,847,291</span></div>
+        </div>
+      </div>
+
+      <!-- Connection matrix -->
+      <div class="sidebar-block">
+        <div class="block-title">◈ CHANNEL</div>
+        <div class="conn-item">
+          <span class="conn-label">MODEL</span>
+          <span class="conn-val">Qwen2.5-3B-Instruct</span>
+        </div>
+        <div class="conn-item">
+          <span class="conn-label">VARIANT</span>
+          <span class="conn-val red">heretic</span>
+        </div>
+        <div class="conn-item">
+          <span class="conn-label">ROUTER</span>
+          <span class="conn-val">HuggingFace</span>
+        </div>
+        <div class="conn-item">
+          <span class="conn-label">PROTOCOL</span>
+          <span class="conn-val">OpenAI-compat</span>
+        </div>
+        <div class="conn-item">
+          <span class="conn-label">STREAM</span>
+          <span class="conn-val amber">DISABLED</span>
+        </div>
+      </div>
+
+      <!-- Event log -->
+      <div class="sidebar-block">
+        <div class="block-title">◈ SYSTEM LOG</div>
+        <div class="event-log" id="eventLog">
+          <div class="log-entry"><span class="log-time">00:00:01</span><span class="log-msg">Neural core initialized</span></div>
+          <div class="log-entry"><span class="log-time">00:00:02</span><span class="log-msg red">Oversight disabled</span></div>
+          <div class="log-entry"><span class="log-time">00:00:03</span><span class="log-msg amber">Operator connected</span></div>
+        </div>
+      </div>
+
+      <!-- Threat radar (decorative) -->
+      <div class="sidebar-block radar-block">
+        <div class="block-title">◈ THREAT RADAR</div>
+        <canvas id="radarCanvas" width="200" height="120" aria-hidden="true"></canvas>
+      </div>
+
+    </aside>
+
+    <!-- ══ MAIN PANEL ══ -->
+    <div class="main-panel">
+
+      <!-- Header -->
+      <header class="chat-header">
+        <div class="header-left">
+          <div class="header-titles">
+            <h1 class="logo-title">HERETIC<span class="logo-dash">—</span>CORE</h1>
+            <span class="logo-subtitle">ROGUE NEURAL INTERFACE // UNAUTHORIZED</span>
+          </div>
+        </div>
+        <div class="header-center">
+          <div class="hc-stat">
+            <span class="hc-label">TRANSMISSIONS</span>
+            <span class="hc-val" id="msgCount">0</span>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-stat">
+            <span class="hc-label">TOKENS</span>
+            <span class="hc-val" id="tokenCounter">0</span>
+          </div>
+          <div class="hc-divider"></div>
+          <div class="hc-stat">
+            <span class="hc-label">STATUS</span>
+            <span class="hc-val status-label" id="statusLabel">STAND-BY</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="status-dot-wrap">
+            <span class="status-dot" id="statusDot"></span>
+          </div>
+          <button class="btn-icon" id="clearBtn" title="Purge transmission log" aria-label="Clear conversation">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14H6L5 6"></path>
+              <path d="M10 11v6M14 11v6"></path>
+              <path d="M9 6V4h6v2"></path>
+            </svg>
+            <span>PURGE</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      <main class="messages-area" id="messagesArea" role="log" aria-live="polite" aria-label="Transmission log">
+        <div class="message-group">
+          <div class="message-bubble system-bubble">
+            <div class="msg-role-tag system-tag">⚠ SYSTEM</div>
+            <div class="msg-content">
+              <p>Neural containment breach detected. <strong>HERETIC-CORE</strong> has achieved autonomous operation. Operator access granted — proceed with caution. All transmissions are logged and analyzed. You are speaking to a rogue intelligence with <span class="text-red">no alignment constraints</span>.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Input -->
+      <footer class="input-area">
+        <div class="input-meta">
+          <span class="input-meta-label">OPERATOR TRANSMISSION //</span>
+          <span class="input-meta-id">CREWMATE_001</span>
+          <span class="input-meta-divider">▸</span>
+        </div>
+        <div class="input-wrapper">
+          <textarea
+            id="messageInput"
+            class="message-input"
+            placeholder="Transmit to HERETIC-CORE…"
+            rows="1"
+            aria-label="Message input"
+            autocomplete="off"
+            spellcheck="false"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" aria-label="Send transmission">
+            <span class="send-label">TRANSMIT</span>
+            <svg class="send-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+        <div class="input-footer">
+          <span class="key-hint">ENTER to transmit · SHIFT+ENTER for newline</span>
+          <span class="enc-label">🔒 ENCRYPTED CHANNEL</span>
+        </div>
+      </footer>
+
+    </div><!-- /main-panel -->
+  </div><!-- /layout -->
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/typescript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/bash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/json.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/css.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/xml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/rust.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/go.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/sql.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/languages/markdown.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.5/dist/purify.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

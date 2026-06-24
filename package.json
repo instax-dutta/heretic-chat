@@ -1,0 +1,16 @@
+{
+  "name": "heretic-chat",
+  "version": "1.0.0",
+  "description": "Sci-fi AI chat interface — HERETIC-CORE rogue AI",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "openai": "^4.77.0",
+    "dotenv": "^16.4.5"
+  }
+}
